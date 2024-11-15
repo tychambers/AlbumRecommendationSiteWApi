@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST">
+	{{ form.csrf_token }}
+  <div class="mb-3">
+    <input type="text" class="form-control" name="album_name" placeholder="Enter Album Name Here">
+  </div>
+  <button type="submit" class="btn btn-primary">Get Recommendations</button>
+</form>
+
+{% if entry %}
+<H1>You Choose This Record:</H1>
+<div class="container">
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-6">
+            <div class="text-center card box-shadow">
+                <img src="{{ entry.image }}" class="rounded mx-auto d-block"><br>
+                {{ entry.album_name }}<br>
+                {{ entry.artist }} <br>
+                Have a Listen: <a href="{{ entry.link }}">Click Here</a> <br>
+            </div>
+            <br><br>
+		</div>
+		<div class="col"></div>
+	</div>
+</div>
+<br><br>
+{% endif %}
+
+{% if recommendations %}
+<H1>Here Are Recommended Records: </H1>
+<div class="container">
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-6">
+			{% for recommendation in recommendations %}
+				<div class="text-center card box-shadow">
+					<img src="{{ recommendation.image }}" class="rounded mx-auto d-block"><br>
+					{{ recommendation.album_name }}<br>
+					{{ recommendation.artist }} <br>
+                    Have a Listen: <a href="{{ recommendation.link }}">Click Here</a> <br>
+				</div>
+				<br><br>
+			{% endfor %}
+		</div>
+		<div class="col"></div>
+	</div>
+</div>
+<br><br>
+{% endif %}
+
+
+{% endblock %}
